@@ -50,3 +50,7 @@ activemq-data/
 # Tomcat
 .extract
 .java-version
+
+# javac编译生成目录
+out/
+*.class
