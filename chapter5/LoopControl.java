@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -29,6 +30,8 @@ public class LoopControl {
      */
     public void showByFor(int[] arr) {
         int n = 0;
+        System.out.println("数组所有数据为: " + Arrays.toString(arr));
+        // a = arr[0] ; a = arr[1]; ..... a = arr[4]
         for (int a : arr) {
             n++;
             if (a < 2 || a > 7) {
@@ -46,7 +49,7 @@ public class LoopControl {
      */
     public void showByWhile(int[] arr) {
         int i = 0;
-        int len = arr.length;
+        int len = arr.length; // 5
         while (i < len) {
             if (arr[i] < 2 || arr[i] > 7) {
                 System.out.printf("[judgeNumberBySwitch][while-break]执行到第%d次，满足if条件的值: %d, 跳出循环。\n", i + 1, arr[i]);
@@ -64,6 +67,8 @@ public class LoopControl {
             }
             ConditionControl.judgeNumberByIf(arr[i]);
         } while (++i < len);
+        // i++ < len => i<len; i=i+1;
+        // ++i < len => i=i+1; i<len;
     }
 
     public static void main(String[] args) {
