@@ -1,3 +1,5 @@
+package chapter3;
+
 /**
  * 基础数据类型
  *

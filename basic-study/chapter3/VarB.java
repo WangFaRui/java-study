@@ -1,3 +1,5 @@
+package chapter3;
+
 /**
  * 变量B类
  *

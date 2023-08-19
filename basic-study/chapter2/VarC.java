@@ -1,3 +1,5 @@
+package chapter2;
+
 /**
  * public类的唯一
  *
@@ -10,13 +12,33 @@ class VarW {
     }
 }
 
+// 匿名类
 class VarD {
 
 }
 
 public class VarC {
     public static void main(String[] args) {
+        VarD varD = new VarD();
         System.out.println("c");
+
+    }
+
+    public void test() {
+        new VarQ();
+        new VarD();
+
+        VarP varP = new VarP();
+
+    }
+
+    // 静态内部类
+    static class VarQ {
+
+    }
+
+    class VarP {
+        int age;
     }
 }
 //

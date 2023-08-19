@@ -1,3 +1,5 @@
+package chapter3;
+
 /**
  * final修饰的常量数据类型
  *

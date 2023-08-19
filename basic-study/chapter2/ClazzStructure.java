@@ -1,3 +1,5 @@
+package chapter2;
+
 /**
  * Java class类的组成结构
  *

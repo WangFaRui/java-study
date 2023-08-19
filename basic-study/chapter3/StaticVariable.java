@@ -1,3 +1,5 @@
+package chapter3;
+
 /**
  * 静态变量
  *
