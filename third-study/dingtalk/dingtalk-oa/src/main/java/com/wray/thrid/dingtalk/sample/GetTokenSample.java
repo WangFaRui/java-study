@@ -1,3 +1,5 @@
+package com.wray.thrid.dingtalk.sample;
+
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiGettokenRequest;

@@ -1,3 +1,5 @@
+package com.wray.thrid.dingtalk.sample;
+
 import com.alibaba.fastjson.JSON;
 import com.aliyun.dingtalkworkflow_1_0.models.StartProcessInstanceHeaders;
 import com.aliyun.dingtalkworkflow_1_0.models.StartProcessInstanceRequest;

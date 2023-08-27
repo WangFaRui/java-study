@@ -1,5 +1,6 @@
+package com.wray.thrid.dingtalk.sample;
+
 import com.alibaba.fastjson.JSON;
-import com.aliyun.tea.*;
 import com.aliyun.teautil.models.*;
 import com.aliyun.dingtalkworkflow_1_0.models.*;
 import com.aliyun.teaopenapi.models.*;
