@@ -20,7 +20,7 @@ public class CreateFormTemplateSample {
     public static void main(String[] args_) throws Exception {
         com.aliyun.dingtalkworkflow_1_0.Client client = CreateFormTemplateSample.createClient();
         FormCreateHeaders formCreateHeaders = new FormCreateHeaders();
-        formCreateHeaders.xAcsDingtalkAccessToken = "7011eb7b5a5e37c694b18c6c79406111";
+        formCreateHeaders.xAcsDingtalkAccessToken = "4d4406d9cb713ce8beb70de43883d111";
         // 1. 单行输入控件
         FormComponentProps formComponentProps1 = new FormComponentProps()
                 .setLabel("名称");
@@ -29,11 +29,12 @@ public class CreateFormTemplateSample {
                 .setProps(formComponentProps1);
 
         FormCreateRequest formCreateRequest = new FormCreateRequest()
-                .setName("表单示例")
+                .setName("测试OA审批")
                 .setFormComponents(java.util.Arrays.asList(
                         formComponent1
                 ));
         try {
+            // PROC-5FAC1A50-E521-4EEF-AC2F-4A2422E2EA9D
             FormCreateResponse response = client.formCreateWithOptions(formCreateRequest, formCreateHeaders, new RuntimeOptions());
             System.out.println(JSON.toJSONString(response));
         } catch (Exception _err) {

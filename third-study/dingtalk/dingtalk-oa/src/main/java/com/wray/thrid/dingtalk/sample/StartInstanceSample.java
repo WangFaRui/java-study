@@ -22,15 +22,16 @@ public class StartInstanceSample {
     }
 
     public static void main(String[] args_) throws Exception {
+        // WV2BmXzKTwakrNJ93gSK_g03281693188973
         com.aliyun.dingtalkworkflow_1_0.Client client = StartInstanceSample.createClient();
         StartProcessInstanceHeaders startProcessInstanceHeaders = new StartProcessInstanceHeaders();
-        startProcessInstanceHeaders.xAcsDingtalkAccessToken = "7011eb7b5a5e37c694b18c6c79406111";
+        startProcessInstanceHeaders.xAcsDingtalkAccessToken = "4d4406d9cb713ce8beb70de43883d111";
         StartProcessInstanceRequest.StartProcessInstanceRequestFormComponentValues formComponentValues0 = new StartProcessInstanceRequest.StartProcessInstanceRequestFormComponentValues()
                 .setName("名称")
-                .setValue("wray");
+                .setValue("测试");
         StartProcessInstanceRequest startProcessInstanceRequest = new StartProcessInstanceRequest()
-                .setOriginatorUserId("306354436429120376")
-                .setProcessCode("PROC-0FAB48EA-FB39-4981-AD80-E67D552B3355")
+                .setOriginatorUserId("01232767186526519111")
+                .setProcessCode("processCode")
                 .setDeptId(-1L)
                 .setFormComponentValues(Collections.singletonList(formComponentValues0));
         try {
