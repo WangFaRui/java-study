@@ -10,7 +10,6 @@ import com.taobao.api.ApiException;
  * 查询用户详情
  */
 public class GetUserDetailSample {
-
     public static void main(String[] args) {
         try {
             DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/topapi/v2/user/get");
