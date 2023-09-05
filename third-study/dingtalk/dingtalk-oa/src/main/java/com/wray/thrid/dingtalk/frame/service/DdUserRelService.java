@@ -37,7 +37,7 @@ public class DdUserRelService {
         if (ddUserRel != null) {
             return ddUserRel;
         }
-
+        // 通过业务用户信息 创建钉钉用户关联数据
         return createDdUserRelByBusinessUser(instance);
     }
 
@@ -59,7 +59,7 @@ public class DdUserRelService {
         // TODO 根据业务系统用户id查询用户详情
         UserResponse userResponse = new UserResponse();
 
-        // 通过手机号查询钉钉用户id
+        // 通过手机号码查询钉钉用户id
         String ddUserId = DingTalkUserInfoClient.getUserIdByMobile(userResponse.getMobile());
         // 通过钉钉用户id查询钉钉用户详情
         OapiV2UserGetResponse.UserGetResponse ddUserRsp = DingTalkUserInfoClient.getUserById(ddUserId);
