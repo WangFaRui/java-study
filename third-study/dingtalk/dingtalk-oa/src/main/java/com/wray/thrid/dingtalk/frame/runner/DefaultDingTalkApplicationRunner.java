@@ -52,7 +52,7 @@ public class DefaultDingTalkApplicationRunner extends AbstractDingTalkApplicatio
             OpenDingTalkClient dingTalkClient = OpenDingTalkStreamClientBuilder
                     .custom()
                     .credential(new AuthClientCredential(properties.getAppKey(), properties.getAppSecret()))
-                    //注册事件监听
+                    // 注册事件监听
                     .registerAllEventListener(new ApprovalCallbackEventListener())
                     .build();
             try {

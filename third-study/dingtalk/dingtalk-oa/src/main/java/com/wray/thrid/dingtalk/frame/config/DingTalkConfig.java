@@ -39,6 +39,9 @@ public abstract class DingTalkConfig {
      */
     private static final Map<Long, DingTalkTenantProperties> TENANT_PROPERTIES_MAP;
 
+    /**
+     * 回调监听器的k-v为：业务审批类型 -> 审批事件类型 -> 监听器
+     */
     private static final Map<BusinessApprovalTypeEnum, Map<ApprovalEventType, List<DingTalkCallbackListener>>> CALLBACK_LISTENER_MAP;
 
     static {

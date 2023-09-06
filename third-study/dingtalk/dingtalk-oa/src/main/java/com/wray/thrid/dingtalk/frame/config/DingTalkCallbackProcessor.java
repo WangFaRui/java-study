@@ -25,6 +25,7 @@ public class DingTalkCallbackProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(@NonNull Object bean, @NonNull String beanName) throws BeansException {
         Class<?> clazz = bean.getClass();
+        // Bean初始化前, 扫描Bean的所有方法
         for (Method method : findAllMethod(clazz)) {
             processMethod(bean, method);
         }
@@ -36,19 +37,23 @@ public class DingTalkCallbackProcessor implements BeanPostProcessor {
         if (annotation == null) {
             return;
         }
+
+        // 获取方法的入参，要求回调方法的入参个数有切仅有一个，并且入参对象继承自DingTalkCallbackEvent
         Class<?>[] parameterTypes = method.getParameterTypes();
         Preconditions.checkArgument(parameterTypes.length == 1,
                 "Invalid number of parameters: %s for method: %s, should be 1", parameterTypes.length,
                 method);
         Preconditions.checkArgument(DingTalkCallbackEvent.class.isAssignableFrom(parameterTypes[0]),
-                "Invalid parameter type: %s for method: %s, should be DingTalkCallbackDto", parameterTypes[0],
+                "Invalid parameter type: %s for method: %s, should be DingTalkCallbackEvent", parameterTypes[0],
                 method);
 
         ReflectionUtils.makeAccessible(method);
 
+        // 创建一个钉钉回调监听器，回调实现方法默认调用当前bean对象的方法
         DingTalkCallbackListener dingTalkCallbackListener = (callbackEvent) ->
                 ReflectionUtils.invokeMethod(method, bean, callbackEvent);
 
+        // 将监听器添加到容器
         DingTalkConfig.addCallbackListener(annotation, dingTalkCallbackListener);
     }
 
