@@ -42,6 +42,7 @@ public class DdApprovalProcessLogService {
 
     @Transactional(rollbackFor = Exception.class)
     public void generateLog(ApprovalTaskChange taskChange, Long tenantId, Long businessRelId) {
+        // 钉钉事件id已存在业务系统数据表中，忽略重复请求
         Long count = ddApprovalProcessLogDao.lambdaQuery()
                 .eq(DdApprovalProcessLog::getTenantId, tenantId)
                 .eq(DdApprovalProcessLog::getEventId, taskChange.getEventId())
@@ -51,6 +52,7 @@ public class DdApprovalProcessLogService {
             return;
         }
 
+        // 保存审批流程记录
         DdApprovalProcessLog approvalProcessLog = new DdApprovalProcessLog();
         approvalProcessLog.setTenantId(tenantId);
         approvalProcessLog.setBusinessRelId(businessRelId);
@@ -64,15 +66,17 @@ public class DdApprovalProcessLogService {
         approvalProcessLog.setProcessType(processType.getCode());
         ddApprovalProcessLogDao.save(approvalProcessLog);
 
+        // 保存当前审批操作中附带的附件
         this.saveLogAttachment(taskChange, tenantId, approvalProcessLog.getId());
     }
 
     private void saveLogAttachment(ApprovalTaskChange taskChange, Long tenantId, Long logId) {
-        // 查询实例详情
+        // 查询审批实例详情
         GetProcessInstanceResponseBody.GetProcessInstanceResponseBodyResult instanceResponse = DingTalkWorkflowClient.getProcessInstanceById(taskChange.getProcessInstanceId());
         List<GetProcessInstanceResponseBody.GetProcessInstanceResponseBodyResultOperationRecords> operationRecords = instanceResponse.getOperationRecords();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
         String eventBornTime = simpleDateFormat.format(taskChange.getEventBornTime());
+        // 遍历审批实例详情中的操作记录，找到与当前审批操作匹配的记录
         for (int len = operationRecords.size() - 1; len >= 0; len--) {
             GetProcessInstanceResponseBody.GetProcessInstanceResponseBodyResultOperationRecords records = operationRecords.get(len);
             if (!taskChange.getStaffId().equals(records.getUserId())) {
@@ -97,8 +101,9 @@ public class DdApprovalProcessLogService {
                         .stream()
                         .map(GetProcessInstanceResponseBody.GetProcessInstanceResponseBodyResultOperationRecordsAttachments::getFileId)
                         .collect(Collectors.toList());
+                // 为附件临时授权可访问
                 DingTalkWorkflowClient.authorizeApprovalDentry(fileIdList);
-
+                // 遍历获取附件信息并上传到业务系统文件服务器，保存审批流程记录的附件信息
                 for (GetProcessInstanceResponseBody.GetProcessInstanceResponseBodyResultOperationRecordsAttachments attachment : records.getAttachments()) {
                     String wyysFileUrl = this.uploadFileToBusinessSystem(attachment.getFileId(), attachment.getFileName());
                     if (wyysFileUrl == null) continue;
