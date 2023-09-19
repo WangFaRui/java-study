@@ -10,6 +10,14 @@ package spi;
  */
 public class PrinterEventListener implements EventListener {
 
+    // Java SPI 和 Spring SPI 只走无参构造方法
+    public PrinterEventListener() {
+    }
+
+    public PrinterEventListener(String msg) {
+        System.out.println("PrinterEventListener Constructor method: " + msg);
+    }
+
     @Override
     public void onEvent(String event) {
         System.out.println("this is PrinterEventListener: " + event);
