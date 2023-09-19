@@ -5,23 +5,19 @@
 
     <parent>
         <groupId>com.itwray.study</groupId>
-        <artifactId>third-study</artifactId>
+        <artifactId>java-study</artifactId>
         <version>1.0.0</version>
     </parent>
 
-    <groupId>com.itwray.study.third</groupId>
-    <artifactId>dingtalk</artifactId>
+    <artifactId>third-study</artifactId>
     <packaging>pom</packaging>
+
     <modules>
-        <module>dingtalk-oa</module>
+        <module>dingtalk</module>
     </modules>
 
     <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
-        </dependency>
+
     </dependencies>
 
 </project>

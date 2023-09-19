@@ -5,22 +5,17 @@
 
     <parent>
         <groupId>com.itwray.study</groupId>
-        <artifactId>third-study</artifactId>
+        <artifactId>java-study</artifactId>
         <version>1.0.0</version>
     </parent>
 
-    <groupId>com.itwray.study.third</groupId>
-    <artifactId>dingtalk</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>dingtalk-oa</module>
-    </modules>
+    <artifactId>advance-study</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.3.22</version>
         </dependency>
     </dependencies>
 
