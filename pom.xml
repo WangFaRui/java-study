@@ -9,6 +9,7 @@
     <modules>
         <module>advance-study</module>
         <module>third-study</module>
+        <module>spring-study</module>
     </modules>
 
     <dependencies>
