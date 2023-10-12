@@ -11,6 +11,7 @@
         <module>third-study</module>
         <module>spring-study</module>
         <module>springboot-study</module>
+        <module>third-study/crawler</module>
     </modules>
 
     <dependencies>
