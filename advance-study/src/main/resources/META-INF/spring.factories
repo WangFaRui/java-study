@@ -1,1 +1,1 @@
-spi.EventListener=spi.PrinterEventListener,spi.BackupEventListener
+com.itwray.study.advance.spi.EventListener=com.itwray.study.advance.spi.PrinterEventListener,com.itwray.study.advance.spi.BackupEventListener

@@ -12,6 +12,7 @@
         <module>spring-study</module>
         <module>springboot-study</module>
         <module>third-study/crawler</module>
+        <module>rocketmq-study</module>
     </modules>
 
     <dependencies>
