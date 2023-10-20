@@ -1,0 +1,8 @@
+server:
+  port: 18080
+
+rocketmq:
+  name-server: localhost:9876
+  producer:
+    group: my-group1
+  topic: normalTopic
