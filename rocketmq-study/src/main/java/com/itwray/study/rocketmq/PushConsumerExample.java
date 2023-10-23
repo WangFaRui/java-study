@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 public class PushConsumerExample {
@@ -42,6 +43,10 @@ public class PushConsumerExample {
                 .setSubscriptionExpressions(Collections.singletonMap(topic, filterExpression))
                 // 设置消费监听器。
                 .setMessageListener(messageView -> {
+                    String message = StandardCharsets.UTF_8
+                            .decode(messageView.getBody())
+                            .toString();
+                    System.out.println("message" + message);
                     // 处理消息并返回消费结果。
                     logger.info("Consume message successfully, messageId={}", messageView.getMessageId());
                     return ConsumeResult.SUCCESS;
