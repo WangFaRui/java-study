@@ -15,8 +15,40 @@
         <module>rocketmq-study</module>
     </modules>
 
-    <dependencies>
+    <properties>
+        <spring.boot.version>2.7.2</spring.boot.version>
+        <spring.version>5.3.22</spring.version>
 
-    </dependencies>
+        <spring.aspects.version>5.3.22</spring.aspects.version>
+        <rocketmq.spring.boot.version>2.2.3</rocketmq.spring.boot.version>
+
+        <snakeyaml.version>1.30</snakeyaml.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- SpringBoot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- RocketMQ -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq.spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client-java</artifactId>
+                <version>5.0.5</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>

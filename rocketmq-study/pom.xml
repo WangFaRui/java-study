@@ -11,28 +11,19 @@
 
     <artifactId>rocketmq-study</artifactId>
 
-    <properties>
-        <spring.boot.version>2.5.9</spring.boot.version>
-        <spring.version>5.3.20</spring.version>
-        <rocketmq.spring.boot.version>2.2.3</rocketmq.spring.boot.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client-java</artifactId>
-            <version>5.0.5</version>
         </dependency>
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-spring-boot-starter</artifactId>
-            <version>${rocketmq.spring.boot.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring.boot.version}</version>
         </dependency>
     </dependencies>
 
