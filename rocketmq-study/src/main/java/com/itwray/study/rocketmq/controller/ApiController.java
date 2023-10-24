@@ -1,5 +1,6 @@
 package com.itwray.study.rocketmq.controller;
 
+import com.itwray.study.rocketmq.consumer.ConsumerService;
 import com.itwray.study.rocketmq.producer.ProducerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,22 +8,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
- * 生产消息的控制器
+ * 对外接口服务
  *
  * @author Wray
  * @since 2023/10/20
  */
 @RestController
-@RequestMapping("/producer")
-public class ProducerController {
+@RequestMapping("/api")
+public class ApiController {
 
     @Resource
     private ProducerService producerService;
 
-    @GetMapping("/produceNormalMessage")
+    @Resource
+    private ConsumerService consumerService;
+
+    @GetMapping("/produce")
     public void produceNormalMessage(@RequestParam String msg) {
         producerService.send(msg);
+    }
+
+    @GetMapping("/consume")
+    public List<String> consume() {
+        return consumerService.receiveMessage();
+    }
+
+    @GetMapping("/extConsume")
+    public List<String> extConsume() {
+        return consumerService.extConsume();
     }
 }

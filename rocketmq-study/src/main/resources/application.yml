@@ -5,4 +5,8 @@ rocketmq:
   name-server: localhost:9876
   producer:
     group: my-group1
-  topic: normalTopic
+  pull-consumer:
+    group: my_consumer1
+    topic: normalTopic
+  demo:
+    topic: normalTopic

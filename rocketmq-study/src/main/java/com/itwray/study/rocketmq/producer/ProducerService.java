@@ -23,7 +23,7 @@ public class ProducerService {
     @Resource
     private MQProducer mqProducer;
 
-    @Value("${rocketmq.topic}")
+    @Value("${rocketmq.demo.topic}")
     private String topic;
 
     public void send(String msg) {
@@ -33,13 +33,7 @@ public class ProducerService {
         try {
             SendResult result = mqProducer.send(message);
             System.out.println("mqProducer send result: " + result);
-        } catch (MQClientException e) {
-            throw new RuntimeException(e);
-        } catch (RemotingException e) {
-            throw new RuntimeException(e);
-        } catch (MQBrokerException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+        } catch (MQClientException | RemotingException | MQBrokerException | InterruptedException e) {
             throw new RuntimeException(e);
         }
 
