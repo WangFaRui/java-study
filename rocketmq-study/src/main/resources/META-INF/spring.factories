@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration = \
+  com.itwray.study.rocketmq.consumer.starter.MQConsumerAutoConfiguration

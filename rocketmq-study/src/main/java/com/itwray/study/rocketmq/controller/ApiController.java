@@ -27,8 +27,8 @@ public class ApiController {
     private ConsumerService consumerService;
 
     @GetMapping("/produce")
-    public void produceNormalMessage(@RequestParam String msg) {
-        producerService.send(msg);
+    public void produce(@RequestParam String msg, @RequestParam(required = false) String topic) {
+        producerService.send(topic, msg);
     }
 
     @GetMapping("/consume")

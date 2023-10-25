@@ -1,5 +1,6 @@
 package com.itwray.study.rocketmq.consumer;
 
+import com.itwray.study.rocketmq.consumer.starter.MQConsumerListener;
 import org.apache.rocketmq.client.consumer.LitePullConsumer;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,10 @@ public class ConsumerService {
         System.out.println("扩展2收到" + messageExtList.size() + "条消息");
         messageExtList.forEach(msg -> System.out.println("Consumer2 message: " + msg));
         return messageExtList;
+    }
+
+    @MQConsumerListener()
+    public void consumeListener(String msg) {
+        System.out.printf("消费者监听[%s]: %s\n", Thread.currentThread().getName(), msg);
     }
 }

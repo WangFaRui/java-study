@@ -1,5 +1,6 @@
 package com.itwray.study.rocketmq.producer;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.MQProducer;
@@ -24,12 +25,12 @@ public class ProducerService {
     private MQProducer mqProducer;
 
     @Value("${rocketmq.demo.topic}")
-    private String topic;
+    private String defaultTopic;
 
-    public void send(String msg) {
+    public void send(String topic, String msg) {
         Message message = new Message();
         message.setBody(msg.getBytes());
-        message.setTopic(topic);
+        message.setTopic(StringUtils.isBlank(topic) ? this.defaultTopic : topic);
         int hashCode = msg.hashCode();
         // 0 or 1
         String tag = "tag_" + hashCode % 2;

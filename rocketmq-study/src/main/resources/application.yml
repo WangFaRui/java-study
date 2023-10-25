@@ -10,5 +10,8 @@ rocketmq:
     topic: normalTopic
     selector-type: TAG
     selector-expression: tag_0
+  consumer:
+    topic: TopicTest
+    group: TopicGroup
   demo:
     topic: normalTopic
