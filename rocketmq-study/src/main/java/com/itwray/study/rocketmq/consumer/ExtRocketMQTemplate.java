@@ -7,7 +7,7 @@ import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 
-@ExtRocketMQConsumerConfiguration(topic = "${rocketmq.demo.topic}")
+@ExtRocketMQConsumerConfiguration(topic = "${rocketmq.demo.topic}", selectorExpression = "tag_1")
 @ExtRocketMQTemplateConfiguration
 public class ExtRocketMQTemplate extends RocketMQTemplate {
 

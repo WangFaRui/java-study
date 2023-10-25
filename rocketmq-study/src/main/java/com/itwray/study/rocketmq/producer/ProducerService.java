@@ -30,9 +30,14 @@ public class ProducerService {
         Message message = new Message();
         message.setBody(msg.getBytes());
         message.setTopic(topic);
+        int hashCode = msg.hashCode();
+        // 0 or 1
+        String tag = "tag_" + hashCode % 2;
+        message.setTags(tag);
         try {
             SendResult result = mqProducer.send(message);
             System.out.println("mqProducer send result: " + result);
+            System.out.println("message tag: " + tag);
         } catch (MQClientException | RemotingException | MQBrokerException | InterruptedException e) {
             throw new RuntimeException(e);
         }

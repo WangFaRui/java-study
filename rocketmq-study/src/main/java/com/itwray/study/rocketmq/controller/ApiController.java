@@ -40,4 +40,9 @@ public class ApiController {
     public List<String> extConsume() {
         return consumerService.extConsume();
     }
+
+    @GetMapping("/extConsume2")
+    public List<String> extConsume2() {
+        return consumerService.extConsume2();
+    }
 }

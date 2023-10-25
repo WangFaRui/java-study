@@ -28,12 +28,12 @@ public class PushConsumerExample {
                 .setEndpoints(endpoints)
                 .build();
         // 订阅消息的过滤规则，表示订阅所有Tag的消息。
-        String tag = "*";
+        String tag = "tag_0";
         FilterExpression filterExpression = new FilterExpression(tag, FilterExpressionType.TAG);
         // 为消费者指定所属的消费者分组，Group需要提前创建。
-        String consumerGroup = "YourConsumerGroup";
+        String consumerGroup = "my_consumer1";
         // 指定需要订阅哪个目标Topic，Topic需要提前创建。
-        String topic = "TestTopic";
+        String topic = "normalTopic";
         // 初始化PushConsumer，需要绑定消费者分组ConsumerGroup、通信参数以及订阅关系。
         PushConsumer pushConsumer = provider.newPushConsumerBuilder()
                 .setClientConfiguration(clientConfiguration)

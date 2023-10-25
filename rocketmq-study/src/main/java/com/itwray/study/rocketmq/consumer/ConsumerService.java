@@ -24,6 +24,9 @@ public class ConsumerService {
     @Resource
     private ExtRocketMQTemplate extRocketMQTemplate;
 
+    @Resource
+    private ExtRocketMQTemplate2 extRocketMQTemplate2;
+
     public List<String> receiveMessage() {
         List<MessageExt> messageExtList = pullConsumer.poll();
         System.out.println("收到" + messageExtList.size() + "条消息");
@@ -40,6 +43,13 @@ public class ConsumerService {
         List<String> messageExtList = extRocketMQTemplate.receive(String.class);
         System.out.println("扩展收到" + messageExtList.size() + "条消息");
         messageExtList.forEach(msg -> System.out.println("Consumer message: " + msg));
+        return messageExtList;
+    }
+
+    public List<String> extConsume2() {
+        List<String> messageExtList = extRocketMQTemplate2.receive(String.class);
+        System.out.println("扩展2收到" + messageExtList.size() + "条消息");
+        messageExtList.forEach(msg -> System.out.println("Consumer2 message: " + msg));
         return messageExtList;
     }
 }
