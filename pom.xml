@@ -36,6 +36,13 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- plugins -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.28</version>
+            </dependency>
+
             <!-- RocketMQ -->
             <dependency>
                 <groupId>org.apache.rocketmq</groupId>
@@ -46,6 +53,13 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-client-java</artifactId>
                 <version>5.0.5</version>
+            </dependency>
+
+            <!-- excel -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>2.2.6</version>
             </dependency>
 
         </dependencies>
