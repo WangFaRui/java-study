@@ -14,4 +14,4 @@ rocketmq:
     topic: TopicTest
     group: TopicGroup
   demo:
-    topic: normalTopic
+    topic: TopicTest

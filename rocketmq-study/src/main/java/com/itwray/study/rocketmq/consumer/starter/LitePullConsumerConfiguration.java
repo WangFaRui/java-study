@@ -11,9 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
@@ -25,11 +27,19 @@ import java.lang.reflect.Method;
  * @since 2023/10/25
  */
 @Configuration(proxyBeanMethods = false)
-public class LitePullConsumerConfiguration implements ApplicationContextAware {
+public class LitePullConsumerConfiguration implements ApplicationContextAware, EnvironmentAware {
+
+    private GenericApplicationContext genericApplicationContext;
+
+    private Environment environment;
 
     private final Logger log = LoggerFactory.getLogger(LitePullConsumerConfiguration.class);
 
-    private GenericApplicationContext genericApplicationContext;
+    private final MQConsumerProperties mqConsumerProperties;
+
+    public LitePullConsumerConfiguration(MQConsumerProperties mqConsumerProperties) {
+        this.mqConsumerProperties = mqConsumerProperties;
+    }
 
     public void registerConsumer(Method method, Object bean, String beanName) {
         MQConsumerListener annotation = AnnotationUtils.getAnnotation(method, MQConsumerListener.class);
@@ -59,9 +69,9 @@ public class LitePullConsumerConfiguration implements ApplicationContextAware {
     }
 
     private DefaultLitePullConsumer createConsumer(MQConsumerListener annotation) throws MQClientException {
-        String nameServer = annotation.nameServer();
-        String groupName = annotation.group();
-        String topicName = annotation.topic();
+        String nameServer = this.resolvePlaceholders(annotation.nameServer(), this.mqConsumerProperties.getNameServer());
+        String groupName = this.resolvePlaceholders(annotation.group(), this.mqConsumerProperties.getGroup());
+        String topicName = this.resolvePlaceholders(annotation.topic(), this.mqConsumerProperties.getTopic());
         MessageModel messageModel = annotation.messageModel();
         SelectorType selectorType = annotation.selectorType();
         String selectorExpression = annotation.selectorExpression();
@@ -88,5 +98,15 @@ public class LitePullConsumerConfiguration implements ApplicationContextAware {
         } else {
             throw new IllegalArgumentException("ApplicationContext is not GenericApplicationContext!");
         }
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    private String resolvePlaceholders(String text, String defaultValue) {
+        String value = this.environment.resolvePlaceholders(text);
+        return StringUtils.hasText(value) ? value : defaultValue;
     }
 }

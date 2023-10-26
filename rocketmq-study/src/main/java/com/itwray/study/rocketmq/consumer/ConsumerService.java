@@ -54,8 +54,16 @@ public class ConsumerService {
         return messageExtList;
     }
 
-    @MQConsumerListener()
+    @MQConsumerListener
     public void consumeListener(String msg) {
+        // 随机制造异常
+        long currentTime = System.currentTimeMillis();
+        // 毫秒数为0或1或2时，手动抛出异常
+        if (currentTime % 10 < 3) {
+            // 手动抛出业务异常
+            System.out.println("业务异常了哦哦哦哦: " + msg);
+            throw new RuntimeException("业务异常了");
+        }
         System.out.printf("消费者监听[%s]: %s\n", Thread.currentThread().getName(), msg);
     }
 }

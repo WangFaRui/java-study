@@ -31,6 +31,16 @@ public class ApiController {
         producerService.send(topic, msg);
     }
 
+    /**
+     * 批量发送消息
+     * @param msg 消息内容
+     * @param size 消息数量
+     */
+    @GetMapping("/batchProduce")
+    public void produce(@RequestParam String msg, @RequestParam Integer size) {
+        producerService.send(msg, size);
+    }
+
     @GetMapping("/consume")
     public List<String> consume() {
         return consumerService.receiveMessage();

@@ -27,11 +27,11 @@ public @interface MQConsumerListener {
      */
     String value() default "";
 
-    String nameServer() default "localhost:9876";
+    String nameServer() default NAME_SERVER_PLACEHOLDER;
 
-    String topic() default "TopicTest";
+    String topic() default TOPIC_PLACEHOLDER;
 
-    String group() default "TopicGroup";
+    String group() default GROUP_PLACEHOLDER;
 
     MessageModel messageModel() default MessageModel.CLUSTERING;
 

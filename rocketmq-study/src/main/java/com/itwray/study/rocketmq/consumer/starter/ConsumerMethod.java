@@ -1,5 +1,6 @@
 package com.itwray.study.rocketmq.consumer.starter;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
@@ -26,7 +27,17 @@ public class ConsumerMethod {
     }
 
     public void invoke(Object param) {
-        ReflectionUtils.invokeMethod(this.method, this.target, param);
+        try {
+            ReflectionUtils.invokeMethod(this.method, this.target, param);
+        } catch (Exception e) {
+            String sb = "MQ消费者(" +
+                    this.target.getClass().getName() +
+                    "#" +
+                    this.method.getName() +
+                    ")消费异常, 消费参数: " +
+                    JSON.toJSONString(param);
+            throw new ConsumerBusinessException(sb, e);
+        }
     }
 
     public Class<?> getParamClazz() {

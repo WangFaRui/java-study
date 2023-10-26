@@ -42,6 +42,12 @@ public class ProducerService {
         } catch (MQClientException | RemotingException | MQBrokerException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public void send(String msg, Integer size) {
+        for (int i=1; i<=size; i++) {
+            String actualMsg = msg + i;
+            this.send(this.defaultTopic, actualMsg);
+        }
     }
 }
