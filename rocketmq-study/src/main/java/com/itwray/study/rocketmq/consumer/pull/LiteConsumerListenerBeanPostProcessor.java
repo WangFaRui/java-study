@@ -1,5 +1,6 @@
-package com.itwray.study.rocketmq.consumer.starter;
+package com.itwray.study.rocketmq.consumer.pull;
 
+import com.itwray.study.rocketmq.consumer.MQConsumerListener;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -14,7 +15,7 @@ import java.lang.reflect.Method;
  * @author Wray
  * @since 2023/10/25
  */
-public class MQConsumerListenerBeanPostProcessor implements BeanPostProcessor {
+public class LiteConsumerListenerBeanPostProcessor implements BeanPostProcessor {
 
     private LitePullConsumerConfiguration litePullConsumerConfiguration;
 

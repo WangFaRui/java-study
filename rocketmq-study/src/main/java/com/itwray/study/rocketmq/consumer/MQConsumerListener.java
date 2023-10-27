@@ -1,4 +1,4 @@
-package com.itwray.study.rocketmq.consumer.starter;
+package com.itwray.study.rocketmq.consumer;
 
 import org.apache.rocketmq.spring.annotation.MessageModel;
 import org.apache.rocketmq.spring.annotation.SelectorType;

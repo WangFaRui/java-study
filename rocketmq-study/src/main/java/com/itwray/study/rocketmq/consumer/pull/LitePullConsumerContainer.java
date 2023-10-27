@@ -1,6 +1,9 @@
-package com.itwray.study.rocketmq.consumer.starter;
+package com.itwray.study.rocketmq.consumer.pull;
 
 import com.alibaba.fastjson.JSON;
+import com.itwray.study.rocketmq.consumer.ConsumerBusinessException;
+import com.itwray.study.rocketmq.consumer.ConsumerMethod;
+import com.itwray.study.rocketmq.consumer.ConsumerThreadFactoryImpl;
 import org.apache.rocketmq.client.consumer.LitePullConsumer;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -80,9 +83,7 @@ public class LitePullConsumerContainer implements InitializingBean, DisposableBe
                     this.litePullConsumer.seek(this.buildMessageQueue(messageExt), messageExt.getQueueOffset());
                 } catch (MQClientException ex) {
                     log.error(ex.getMessage(), ex);
-                    throw new RuntimeException(ex);
                 }
-                throw e;
             } finally {
                 // 调试换行
                 System.out.println();

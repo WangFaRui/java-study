@@ -1,8 +1,4 @@
-package com.itwray.study.rocketmq.consumer.starter;
-
-import com.alibaba.fastjson.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.itwray.study.rocketmq.consumer;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
@@ -21,8 +17,6 @@ public class ConsumerThreadFactoryImpl implements ThreadFactory {
 
     private final String threadName;
 
-    private final Logger log = LoggerFactory.getLogger(ConsumerThreadFactoryImpl.class);
-
     public ConsumerThreadFactoryImpl(String threadName) {
         this.threadName = threadName;
     }
@@ -30,15 +24,6 @@ public class ConsumerThreadFactoryImpl implements ThreadFactory {
     @Override
     public Thread newThread(Runnable r) {
         Thread thread = new Thread(r, THREAD_PREFIX + "-" + this.threadName + "-" + THREAD_INDEX.getAndIncrement());
-        thread.setUncaughtExceptionHandler((t, e) -> {
-            if (e instanceof ConsumerBusinessException) {
-                log.error("MQ消费消息时业务异常!", e);
-            } else if (e instanceof JSONException) {
-                log.error("MQ消费消息时JSON序列化失败!!", e);
-            } else {
-                log.error("MQ消费消息时未知的异常!!!", e);
-            }
-        });
         thread.setDaemon(false);
         return thread;
     }

@@ -1,5 +1,6 @@
-package com.itwray.study.rocketmq.consumer.starter;
+package com.itwray.study.rocketmq.consumer.pull;
 
+import com.itwray.study.rocketmq.consumer.MQConsumerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -12,6 +13,6 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(MQConsumerProperties.class)
-@Import({LitePullConsumerConfiguration.class, MQConsumerListenerBeanPostProcessor.class})
-public class MQConsumerAutoConfiguration {
+@Import({LitePullConsumerConfiguration.class, LiteConsumerListenerBeanPostProcessor.class})
+public class LiteConsumerAutoConfiguration {
 }

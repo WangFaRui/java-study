@@ -1,6 +1,6 @@
 package com.itwray.study.rocketmq.controller;
 
-import com.itwray.study.rocketmq.consumer.ConsumerService;
+import com.itwray.study.rocketmq.consumer.service.ConsumerService;
 import com.itwray.study.rocketmq.producer.ProducerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

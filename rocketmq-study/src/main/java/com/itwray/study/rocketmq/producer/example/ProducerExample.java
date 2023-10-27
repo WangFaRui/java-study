@@ -1,4 +1,4 @@
-package com.itwray.study.rocketmq;
+package com.itwray.study.rocketmq.producer.example;
 
 import org.apache.rocketmq.client.apis.ClientConfiguration;
 import org.apache.rocketmq.client.apis.ClientConfigurationBuilder;

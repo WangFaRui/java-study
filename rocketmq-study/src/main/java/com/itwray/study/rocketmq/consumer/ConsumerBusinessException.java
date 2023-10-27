@@ -1,4 +1,4 @@
-package com.itwray.study.rocketmq.consumer.starter;
+package com.itwray.study.rocketmq.consumer;
 
 /**
  * 消费者业务异常

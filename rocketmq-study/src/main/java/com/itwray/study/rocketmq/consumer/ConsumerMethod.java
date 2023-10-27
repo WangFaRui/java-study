@@ -1,4 +1,4 @@
-package com.itwray.study.rocketmq.consumer.starter;
+package com.itwray.study.rocketmq.consumer;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.util.ReflectionUtils;

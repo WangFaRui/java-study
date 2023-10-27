@@ -1,6 +1,8 @@
-package com.itwray.study.rocketmq.consumer;
+package com.itwray.study.rocketmq.consumer.service;
 
-import com.itwray.study.rocketmq.consumer.starter.MQConsumerListener;
+import com.itwray.study.rocketmq.consumer.ext.ExtRocketMQTemplate;
+import com.itwray.study.rocketmq.consumer.ext.ExtRocketMQTemplate2;
+import com.itwray.study.rocketmq.consumer.MQConsumerListener;
 import org.apache.rocketmq.client.consumer.LitePullConsumer;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.stereotype.Service;

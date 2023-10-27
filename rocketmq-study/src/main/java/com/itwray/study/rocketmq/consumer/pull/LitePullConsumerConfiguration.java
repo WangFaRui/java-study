@@ -1,5 +1,8 @@
-package com.itwray.study.rocketmq.consumer.starter;
+package com.itwray.study.rocketmq.consumer.pull;
 
+import com.itwray.study.rocketmq.consumer.ConsumerMethod;
+import com.itwray.study.rocketmq.consumer.MQConsumerListener;
+import com.itwray.study.rocketmq.consumer.MQConsumerProperties;
 import org.apache.rocketmq.client.consumer.DefaultLitePullConsumer;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.topic.TopicValidator;

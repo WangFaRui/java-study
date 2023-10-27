@@ -1,4 +1,4 @@
-package com.itwray.study.rocketmq.consumer;
+package com.itwray.study.rocketmq.consumer.ext;
 
 import org.apache.rocketmq.spring.annotation.ExtRocketMQConsumerConfiguration;
 import org.apache.rocketmq.spring.annotation.ExtRocketMQTemplateConfiguration;
