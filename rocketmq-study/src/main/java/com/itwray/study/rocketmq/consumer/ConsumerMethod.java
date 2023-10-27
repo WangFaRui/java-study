@@ -29,7 +29,7 @@ public class ConsumerMethod {
     public void invoke(Object param) {
         try {
             ReflectionUtils.invokeMethod(this.method, this.target, param);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             String sb = "MQ消费者(" +
                     this.target.getClass().getName() +
                     "#" +

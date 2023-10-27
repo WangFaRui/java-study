@@ -21,7 +21,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 消费者容器
+ * Lite Pull消费模式的消费者容器
  *
  * @author Wray
  * @since 2023/10/25
@@ -74,12 +74,13 @@ public class LitePullConsumerContainer implements InitializingBean, DisposableBe
         List<MessageExt> messageExtList = this.litePullConsumer.poll();
         for (MessageExt messageExt : messageExtList) {
             Object message = this.convertMessage(messageExt, this.consumerMethod.getParamClazz());
-            System.out.println("消费消息: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset()+ ", 消息内容为: " + message);
+            System.out.println("Lite Pull消费消息: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset()+ ", 消息内容为: " + message);
             try {
                 this.consumerMethod.invoke(message);
             } catch (ConsumerBusinessException e) {
                 try {
-                    System.out.println("回溯的队列偏移量: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset() + ", 消息内容为: " + message);
+                    System.out.println("Lite Pull回溯的队列偏移量: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset() + ", 消息内容为: " + message);
+                    log.error("Lite Pull消费消息异常", e);
                     this.litePullConsumer.seek(this.buildMessageQueue(messageExt), messageExt.getQueueOffset());
                 } catch (MQClientException ex) {
                     log.error(ex.getMessage(), ex);

@@ -27,6 +27,11 @@ public @interface MQConsumerListener {
      */
     String value() default "";
 
+    /**
+     * 消费监听模式
+     */
+    ConsumeListeningMode consumeListeningMode() default ConsumeListeningMode.PUSH;
+
     String nameServer() default NAME_SERVER_PLACEHOLDER;
 
     String topic() default TOPIC_PLACEHOLDER;
