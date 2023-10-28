@@ -1,6 +1,6 @@
 package com.itwray.study.rocketmq.consumer.pull;
 
-import com.alibaba.fastjson.JSON;
+import com.itwray.study.rocketmq.consumer.AbstractConsumerContainer;
 import com.itwray.study.rocketmq.consumer.ConsumerBusinessException;
 import com.itwray.study.rocketmq.consumer.ConsumerMethod;
 import com.itwray.study.rocketmq.consumer.ConsumerThreadFactoryImpl;
@@ -10,12 +10,8 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.message.MessageQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -26,18 +22,16 @@ import java.util.concurrent.TimeUnit;
  * @author Wray
  * @since 2023/10/25
  */
-public class LitePullConsumerContainer implements InitializingBean, DisposableBean {
+public class LitePullConsumerContainer extends AbstractConsumerContainer {
 
     private final ScheduledExecutorService executorService;
-
-    private final ConsumerMethod consumerMethod;
 
     private final Logger log = LoggerFactory.getLogger(LitePullConsumerContainer.class);
 
     private LitePullConsumer litePullConsumer;
 
     public LitePullConsumerContainer(ConsumerMethod consumerMethod) {
-        this.consumerMethod = consumerMethod;
+        super(consumerMethod);
 
         executorService = new ScheduledThreadPoolExecutor(
                 Runtime.getRuntime().availableProcessors(),
@@ -52,10 +46,7 @@ public class LitePullConsumerContainer implements InitializingBean, DisposableBe
         }
     }
 
-    public void setLitePullConsumer(LitePullConsumer litePullConsumer) {
-        this.litePullConsumer = litePullConsumer;
-    }
-
+    @Override
     public void startUp() {
         if (this.litePullConsumer == null) {
             throw new NullPointerException("Consumer are not configured!");
@@ -70,13 +61,17 @@ public class LitePullConsumerContainer implements InitializingBean, DisposableBe
         litePullConsumer.shutdown();
     }
 
+    public void setLitePullConsumer(LitePullConsumer litePullConsumer) {
+        this.litePullConsumer = litePullConsumer;
+    }
+
     private void run() {
         List<MessageExt> messageExtList = this.litePullConsumer.poll();
         for (MessageExt messageExt : messageExtList) {
-            Object message = this.convertMessage(messageExt, this.consumerMethod.getParamClazz());
+            Object message = this.convertMessage(messageExt, this.getConsumerMethod().getParamClazz());
             System.out.println("Lite Pull消费消息: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset()+ ", 消息内容为: " + message);
             try {
-                this.consumerMethod.invoke(message);
+                this.getConsumerMethod().invoke(message);
             } catch (ConsumerBusinessException e) {
                 try {
                     System.out.println("Lite Pull回溯的队列偏移量: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset() + ", 消息内容为: " + message);
@@ -88,19 +83,6 @@ public class LitePullConsumerContainer implements InitializingBean, DisposableBe
             } finally {
                 // 调试换行
                 System.out.println();
-            }
-        }
-    }
-
-    private Object convertMessage(MessageExt messageExt, Class<?> messageType) {
-        if (Objects.equals(messageType, MessageExt.class)) {
-            return messageExt;
-        } else {
-            String str = new String(messageExt.getBody(), StandardCharsets.UTF_8);
-            if (Objects.equals(messageType, String.class)) {
-                return str;
-            } else {
-                return JSON.parseObject(str, messageType);
             }
         }
     }
