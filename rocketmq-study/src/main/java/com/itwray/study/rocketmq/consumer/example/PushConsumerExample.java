@@ -54,6 +54,6 @@ public class PushConsumerExample {
                 .build();
         Thread.sleep(Long.MAX_VALUE);
         // 如果不需要再使用 PushConsumer，可关闭该实例。
-         pushConsumer.close();
+        pushConsumer.close();
     }
 }

@@ -45,6 +45,6 @@ public class ProducerExample {
         } catch (ClientException e) {
             logger.error("Failed to send message", e);
         }
-         producer.close();
+        producer.close();
     }
 }
