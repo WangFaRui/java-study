@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public abstract class AbstractConsumerContainer implements ConsumerContainer, InitializingBean, DisposableBean {
 
-    private ConsumerMethod consumerMethod;
+    private final ConsumerMethod consumerMethod;
 
     public AbstractConsumerContainer(ConsumerMethod consumerMethod) {
         this.consumerMethod = consumerMethod;

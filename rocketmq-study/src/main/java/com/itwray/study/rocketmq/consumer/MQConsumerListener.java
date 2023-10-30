@@ -32,6 +32,12 @@ public @interface MQConsumerListener {
      */
     ConsumeListeningMode consumeListeningMode() default ConsumeListeningMode.PUSH;
 
+    /**
+     * 消息监听规则
+     * <p>仅在 ConsumeListeningMode.PUSH 模式下生效</p>
+     */
+    MessageListeningRule messageListeningRule() default MessageListeningRule.ORDERLY;
+
     String nameServer() default NAME_SERVER_PLACEHOLDER;
 
     String topic() default TOPIC_PLACEHOLDER;

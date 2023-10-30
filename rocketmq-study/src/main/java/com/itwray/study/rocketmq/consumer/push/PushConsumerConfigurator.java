@@ -48,7 +48,7 @@ public class PushConsumerConfigurator extends AbstractConsumerConfigurator imple
         PushConsumerContainer container = new PushConsumerContainer(consumerMethod);
         try {
             DefaultMQPushConsumer pushConsumer = this.createConsumer(annotation);
-            container.setPushConsumer(pushConsumer);
+            container.setPushConsumer(pushConsumer, annotation.messageListeningRule());
         } catch (MQClientException e) {
             throw new RuntimeException(e);
         }

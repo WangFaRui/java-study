@@ -3,10 +3,9 @@ package com.itwray.study.rocketmq.consumer.push;
 import com.itwray.study.rocketmq.consumer.AbstractConsumerContainer;
 import com.itwray.study.rocketmq.consumer.ConsumerBusinessException;
 import com.itwray.study.rocketmq.consumer.ConsumerMethod;
+import com.itwray.study.rocketmq.consumer.MessageListeningRule;
 import org.apache.rocketmq.client.consumer.MQPushConsumer;
-import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
-import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
-import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
+import org.apache.rocketmq.client.consumer.listener.*;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,23 +45,32 @@ public class PushConsumerContainer extends AbstractConsumerContainer {
         pushConsumer.shutdown();
     }
 
-    public void setPushConsumer(MQPushConsumer pushConsumer) {
+    public void setPushConsumer(MQPushConsumer pushConsumer, MessageListeningRule messageListeningRule) {
         this.pushConsumer = pushConsumer;
-        this.pushConsumer.registerMessageListener(new DefaultMessageLister());
+        switch (messageListeningRule) {
+            case ORDERLY:
+                this.pushConsumer.registerMessageListener(new OrderlyMessageLister());
+                break;
+            case CONCURRENTLY:
+                this.pushConsumer.registerMessageListener(new ConcurrentlyMessageListener());
+                break;
+            default:
+                throw new IllegalArgumentException("messageListeningRule is illegal argument");
+        }
     }
 
-    public class DefaultMessageLister implements MessageListenerOrderly {
+    public class OrderlyMessageLister implements MessageListenerOrderly {
 
         @Override
         public ConsumeOrderlyStatus consumeMessage(List<MessageExt> messageExtList, ConsumeOrderlyContext context) {
             for (MessageExt messageExt : messageExtList) {
                 Object message = convertMessage(messageExt, getConsumerMethod().getParamClazz());
-                System.out.println("Push消费消息: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset() + ", 消息内容为: " + message);
+                System.out.println("Push Orderly消费消息: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset() + ", 消息内容为: " + message);
                 try {
                     getConsumerMethod().invoke(message);
                 } catch (ConsumerBusinessException e) {
-                    System.out.println("Push回溯的队列偏移量: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset() + ", 消息内容为: " + message);
-                    log.error("Push消费消息异常", e);
+                    System.out.println("Push Orderly回溯的队列偏移量: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset() + ", 消息内容为: " + message);
+                    log.error("Push Orderly消费消息异常", e);
                     context.setSuspendCurrentQueueTimeMillis(1000L);
                     return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
                 } finally {
@@ -71,6 +79,29 @@ public class PushConsumerContainer extends AbstractConsumerContainer {
                 }
             }
             return ConsumeOrderlyStatus.SUCCESS;
+        }
+    }
+
+    public class ConcurrentlyMessageListener implements MessageListenerConcurrently {
+
+        @Override
+        public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messageExtList, ConsumeConcurrentlyContext context) {
+            for (MessageExt messageExt : messageExtList) {
+                Object message = convertMessage(messageExt, getConsumerMethod().getParamClazz());
+                System.out.println("Push Concurrently消费消息: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset() + ", 消息内容为: " + message);
+                try {
+                    getConsumerMethod().invoke(message);
+                } catch (ConsumerBusinessException e) {
+                    System.out.println("Push Concurrently回溯的队列偏移量: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset() + ", 消息内容为: " + message);
+                    log.error("Push Concurrently消费消息异常", e);
+                    context.setDelayLevelWhenNextConsume(0);
+                    return ConsumeConcurrentlyStatus.RECONSUME_LATER;
+                } finally {
+                    // 调试换行
+                    System.out.println();
+                }
+            }
+            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         }
     }
 
