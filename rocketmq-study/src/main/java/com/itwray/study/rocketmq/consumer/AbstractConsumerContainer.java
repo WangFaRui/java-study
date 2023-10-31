@@ -30,11 +30,10 @@ public abstract class AbstractConsumerContainer implements ConsumerContainer, In
         if (Objects.equals(messageType, MessageExt.class)) {
             return messageExt;
         } else {
-            String str = new String(messageExt.getBody(), StandardCharsets.UTF_8);
             if (Objects.equals(messageType, String.class)) {
-                return str;
+                return new String(messageExt.getBody(), StandardCharsets.UTF_8);
             } else {
-                return JSON.parseObject(str, messageType);
+                return JSON.parseObject(messageExt.getBody(), messageType);
             }
         }
     }

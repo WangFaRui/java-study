@@ -2,10 +2,8 @@ package com.itwray.study.rocketmq.controller;
 
 import com.itwray.study.rocketmq.consumer.service.ConsumerService;
 import com.itwray.study.rocketmq.producer.ProducerService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.itwray.study.rocketmq.producer.UserVo;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -37,8 +35,16 @@ public class ApiController {
      * @param size 消息数量
      */
     @GetMapping("/batchProduce")
-    public void produce(@RequestParam String msg, @RequestParam Integer size) {
+    public void batchProduce(@RequestParam String msg, @RequestParam Integer size) {
         producerService.send(msg, size);
+    }
+
+    /**
+     * 生产{@link UserVo}对象的消息
+     */
+    @PostMapping("/produceUser")
+    public void produceUser(@RequestBody UserVo userVo) {
+        producerService.send(null, userVo);
     }
 
     @GetMapping("/consume")

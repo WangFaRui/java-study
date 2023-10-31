@@ -4,6 +4,7 @@ import com.itwray.study.rocketmq.consumer.ConsumeListeningMode;
 import com.itwray.study.rocketmq.consumer.MQConsumerListener;
 import com.itwray.study.rocketmq.consumer.ext.ExtRocketMQTemplate;
 import com.itwray.study.rocketmq.consumer.ext.ExtRocketMQTemplate2;
+import com.itwray.study.rocketmq.producer.UserVo;
 import org.apache.rocketmq.client.consumer.LitePullConsumer;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.stereotype.Service;
@@ -58,16 +59,16 @@ public class ConsumerService {
     }
 
     @MQConsumerListener(consumeListeningMode = ConsumeListeningMode.LITE_PULL)
-    public void consumeListenerByLitePull(String msg) {
+    public void consumeListenerByLitePull(Object msg) {
         this.consumeMsg(msg);
     }
 
     @MQConsumerListener
-    public void consumeListenerByPush(String msg) {
+    public void consumeListenerByPush(UserVo msg) {
         this.consumeMsg(msg);
     }
 
-    private void consumeMsg(String msg) {
+    private void consumeMsg(Object msg) {
         // 随机制造异常
         long currentTime = System.currentTimeMillis();
         // 毫秒数为0或1或2时，手动抛出异常
