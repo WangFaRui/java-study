@@ -29,7 +29,6 @@ public class ProducerHelper {
 
     private static String defaultTopic;
 
-
     public ProducerHelper(@Autowired MQProducer mqProducer, @Value("${rocketmq.demo.topic}") String topic) {
         ProducerHelper.mqProducer = mqProducer;
         ProducerHelper.defaultTopic = topic;
@@ -71,5 +70,4 @@ public class ProducerHelper {
             throw new RuntimeException(e);
         }
     }
-
 }

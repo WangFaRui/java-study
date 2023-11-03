@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class ProducerExample {
+
     private static final Logger logger = LoggerFactory.getLogger(ProducerExample.class);
 
     public static void main(String[] args) throws ClientException, IOException {

@@ -15,10 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 public class PushConsumerExample {
-    private static final Logger logger = LoggerFactory.getLogger(PushConsumerExample.class);
 
-    private PushConsumerExample() {
-    }
+    private static final Logger logger = LoggerFactory.getLogger(PushConsumerExample.class);
 
     public static void main(String[] args) throws ClientException, IOException, InterruptedException {
         final ClientServiceProvider provider = ClientServiceProvider.loadService();
