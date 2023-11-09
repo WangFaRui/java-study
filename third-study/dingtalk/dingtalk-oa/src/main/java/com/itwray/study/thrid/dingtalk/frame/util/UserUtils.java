@@ -9,10 +9,10 @@ package com.itwray.study.thrid.dingtalk.frame.util;
 public class UserUtils {
 
     public static Long getTenantId() {
-        return null;
+        return 0L;
     }
 
     public static Long getUserId() {
-        return null;
+        return 0L;
     }
 }

@@ -3,7 +3,6 @@ package com.itwray.study.thrid.dingtalk.frame.service;
 import com.dingtalk.api.response.OapiV2UserGetResponse;
 import com.itwray.study.thrid.dingtalk.frame.client.DingTalkUserInfoClient;
 import com.itwray.study.thrid.dingtalk.frame.dao.DdUserRelDao;
-import com.itwray.study.thrid.dingtalk.frame.model.ApprovalFormInstance;
 import com.itwray.study.thrid.dingtalk.frame.model.business.UserResponse;
 import com.itwray.study.thrid.dingtalk.frame.model.entity.DdUserRel;
 import org.apache.commons.lang3.StringUtils;
@@ -27,18 +26,18 @@ public class DdUserRelService {
     private DdUserRelDao ddUserRelDao;
 
     @Transactional(rollbackFor = Exception.class)
-    public DdUserRel resolveDdUserRel(ApprovalFormInstance instance) {
+    public DdUserRel resolveDdUserRel(Long tenantId, Long scmUserId) {
         // 查询已关联的用户信息
         DdUserRel ddUserRel = ddUserRelDao.lambdaQuery()
-                .eq(DdUserRel::getTenantId, instance.getTenantId())
-                .eq(DdUserRel::getScmUserId, instance.getUserId())
+                .eq(DdUserRel::getTenantId, tenantId)
+                .eq(DdUserRel::getScmUserId, scmUserId)
                 .last("limit 1")
                 .one();
         if (ddUserRel != null) {
             return ddUserRel;
         }
         // 通过业务用户信息 创建钉钉用户关联数据
-        return createDdUserRelByBusinessUser(instance);
+        return createDdUserRelByBusinessUser(tenantId, scmUserId);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -55,7 +54,7 @@ public class DdUserRelService {
         return createDdUserRelByDdUser(tenantId, ddUserId);
     }
 
-    private DdUserRel createDdUserRelByBusinessUser(ApprovalFormInstance dto) {
+    private DdUserRel createDdUserRelByBusinessUser(Long tenantId, Long scmUserId) {
         // TODO 根据业务系统用户id查询用户详情
         UserResponse userResponse = new UserResponse();
 
@@ -66,8 +65,8 @@ public class DdUserRelService {
 
         // 新增关联对象
         DdUserRel newEntity = new DdUserRel();
-        newEntity.setTenantId(dto.getTenantId());
-        newEntity.setScmUserId(dto.getUserId());
+        newEntity.setTenantId(tenantId);
+        newEntity.setScmUserId(scmUserId);
         newEntity.setDdUserId(ddUserId);
         newEntity.setDdUserName(userResponse.getUserName());
         newEntity.setUserMobile(userResponse.getMobile());

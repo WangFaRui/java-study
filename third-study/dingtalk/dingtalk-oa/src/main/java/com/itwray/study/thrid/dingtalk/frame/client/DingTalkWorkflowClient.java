@@ -253,6 +253,23 @@ public class DingTalkWorkflowClient {
         } catch (Exception _err) {
             throw new TeaException(_err.getMessage(), _err);
         }
+    }
 
+    public static boolean terminateProcessInstance(String processInstanceId, String operatingUserId) {
+        Client client = DingTalkApiClientUtil.createWorkflowClient();
+        TerminateProcessInstanceHeaders terminateProcessInstanceHeaders = new TerminateProcessInstanceHeaders();
+        terminateProcessInstanceHeaders.setXAcsDingtalkAccessToken(DingTalkAuthManager.getToken());
+        TerminateProcessInstanceRequest terminateProcessInstanceRequest = new TerminateProcessInstanceRequest()
+                .setProcessInstanceId(processInstanceId)
+                .setIsSystem(false)
+                .setOperatingUserId(operatingUserId);
+        try {
+            TerminateProcessInstanceResponse response = client.terminateProcessInstanceWithOptions(terminateProcessInstanceRequest, terminateProcessInstanceHeaders, new RuntimeOptions());
+            return response.getBody().getResult();
+        } catch (TeaException err) {
+            throw err;
+        } catch (Exception _err) {
+            throw new TeaException(_err.getMessage(), _err);
+        }
     }
 }

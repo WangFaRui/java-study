@@ -49,7 +49,7 @@ public class DingTalkApprovalService {
             log.info("发起审批流程实例-审批模板: {}", ddApprovalFormRel);
 
             // 2. 获取审批发起人对应的钉钉用户信息
-            DdUserRel ddUserRel = ddUserRelService.resolveDdUserRel(instance);
+            DdUserRel ddUserRel = ddUserRelService.resolveDdUserRel(instance.getTenantId(), instance.getUserId());
             // 2.1 若手动指定钉钉部门id，则覆盖用户关联的钉钉部门
             if (instance.getDepartmentId() != null) {
                 ddUserRel.setDdDeptId(instance.getDepartmentId());
