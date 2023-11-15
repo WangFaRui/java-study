@@ -70,6 +70,9 @@ public class LitePullConsumerContainer extends AbstractConsumerContainer {
         for (MessageExt messageExt : messageExtList) {
             Object message = this.convertMessage(messageExt, this.getConsumerMethod().getParamClazz());
             System.out.println("Lite Pull消费消息: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset()+ ", 消息内容为: " + message);
+            if (message == null) {
+                continue;
+            }
             try {
                 this.getConsumerMethod().invoke(message);
             } catch (ConsumerBusinessException e) {

@@ -1,9 +1,11 @@
 package com.itwray.study.rocketmq.consumer;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.lang.Nullable;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -26,6 +28,7 @@ public abstract class AbstractConsumerContainer implements ConsumerContainer, In
         return consumerMethod;
     }
 
+    @Nullable
     public Object convertMessage(MessageExt messageExt, Class<?> messageType) {
         if (Objects.equals(messageType, MessageExt.class)) {
             return messageExt;
@@ -33,7 +36,12 @@ public abstract class AbstractConsumerContainer implements ConsumerContainer, In
             if (Objects.equals(messageType, String.class)) {
                 return new String(messageExt.getBody(), StandardCharsets.UTF_8);
             } else {
-                return JSON.parseObject(messageExt.getBody(), messageType);
+                try {
+                    return JSON.parseObject(messageExt.getBody(), messageType);
+                } catch (JSONException e) {
+                    System.err.println("消息类型转换异常, 消息内容: " + new String(messageExt.getBody(), StandardCharsets.UTF_8));
+                    return null;
+                }
             }
         }
     }

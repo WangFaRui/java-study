@@ -66,6 +66,9 @@ public class PushConsumerContainer extends AbstractConsumerContainer {
             for (MessageExt messageExt : messageExtList) {
                 Object message = convertMessage(messageExt, getConsumerMethod().getParamClazz());
                 System.out.println("Push Orderly消费消息: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset() + ", 消息内容为: " + message);
+                if (message == null) {
+                    continue;
+                }
                 try {
                     getConsumerMethod().invoke(message);
                 } catch (ConsumerBusinessException e) {
@@ -89,6 +92,9 @@ public class PushConsumerContainer extends AbstractConsumerContainer {
             for (MessageExt messageExt : messageExtList) {
                 Object message = convertMessage(messageExt, getConsumerMethod().getParamClazz());
                 System.out.println("Push Concurrently消费消息: " + messageExt.getQueueId() + "&" + messageExt.getQueueOffset() + ", 消息内容为: " + message);
+                if (message == null) {
+                    continue;
+                }
                 try {
                     getConsumerMethod().invoke(message);
                 } catch (ConsumerBusinessException e) {
