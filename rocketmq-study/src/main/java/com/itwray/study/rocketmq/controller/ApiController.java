@@ -2,7 +2,7 @@ package com.itwray.study.rocketmq.controller;
 
 import com.itwray.study.rocketmq.consumer.service.ConsumerService;
 import com.itwray.study.rocketmq.producer.ProducerService;
-import com.itwray.study.rocketmq.producer.UserVo;
+import com.itwray.study.rocketmq.domain.UserVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

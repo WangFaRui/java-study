@@ -1,5 +1,6 @@
 package com.itwray.study.rocketmq.consumer.example;
 
+import com.itwray.study.rocketmq.domain.UserVo;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Service;
@@ -10,12 +11,12 @@ import org.springframework.stereotype.Service;
  * @author Wray
  * @since 2023/11/15
  */
+//@Service
 @RocketMQMessageListener(consumerGroup = "listener_group", topic = "TestTopic")
-@Service
-public class MyMQMessageListenerCustomer implements RocketMQListener<String> {
+public class UserVoMQMessageListener extends SuperUserRocketMQListener<UserVo> implements RocketMQListener<UserVo> {
 
     @Override
-    public void onMessage(String message) {
-        System.out.println("MyMQMessageListenerCustomer: " + message);
+    public void onMessage(UserVo message) {
+        System.out.println("UserVoMQMessageListener: " + message);
     }
 }

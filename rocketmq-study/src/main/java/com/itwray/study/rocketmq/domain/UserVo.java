@@ -1,4 +1,4 @@
-package com.itwray.study.rocketmq.producer;
+package com.itwray.study.rocketmq.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Wray
  * @since 2023/10/31
  */
-public class UserVo {
+public class UserVo extends SuperUser {
 
     private Long id;
 

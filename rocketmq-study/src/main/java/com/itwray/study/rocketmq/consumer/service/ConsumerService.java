@@ -4,7 +4,7 @@ import com.itwray.study.rocketmq.consumer.ConsumeListeningMode;
 import com.itwray.study.rocketmq.consumer.MQConsumerListener;
 import com.itwray.study.rocketmq.consumer.ext.ExtRocketMQTemplate;
 import com.itwray.study.rocketmq.consumer.ext.ExtRocketMQTemplate2;
-import com.itwray.study.rocketmq.producer.UserVo;
+import com.itwray.study.rocketmq.domain.UserVo;
 import org.apache.rocketmq.client.consumer.LitePullConsumer;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.stereotype.Service;
