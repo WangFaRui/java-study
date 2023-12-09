@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * SpringBoot启动类
+ * RocketMQ SpringBoot启动类
  *
  * @author Wray
  * @since 2023/10/20
