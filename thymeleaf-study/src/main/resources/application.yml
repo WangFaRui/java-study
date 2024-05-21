@@ -1,0 +1,13 @@
+server:
+  port: 13145  # 默认端口
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: ThymeleafDemo # 项目名称
+  thymeleaf:
+    model: HTML #模板模式、默认为HTML5
+    #    不配置默认：prefix: classpath:/templates/
+    prefix: classpath:/thymeleaf/  #模板前缀
+    suffix: .html #模板后缀 默认为.html
+    cache: false #是否打开模板配置 、默认为true

@@ -13,6 +13,7 @@
         <module>springboot-study</module>
         <module>third-study/crawler</module>
         <module>rocketmq-study</module>
+        <module>thymeleaf-study</module>
     </modules>
 
     <properties>
