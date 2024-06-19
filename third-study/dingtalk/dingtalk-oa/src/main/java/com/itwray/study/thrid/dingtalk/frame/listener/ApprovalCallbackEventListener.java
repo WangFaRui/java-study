@@ -5,7 +5,6 @@ import com.itwray.study.thrid.dingtalk.frame.config.DingTalkTenantProperties;
 import com.itwray.study.thrid.dingtalk.frame.model.*;
 import com.itwray.study.thrid.dingtalk.frame.util.SpringUtil;
 import com.itwray.study.thrid.dingtalk.frame.config.DingTalkConfig;
-import com.wray.thrid.dingtalk.frame.model.*;
 import com.itwray.study.thrid.dingtalk.frame.model.entity.DdApprovalBusinessRel;
 import com.itwray.study.thrid.dingtalk.frame.model.entity.DdUserRel;
 import com.itwray.study.thrid.dingtalk.frame.service.DdApprovalBusinessRelService;
