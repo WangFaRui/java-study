@@ -3,7 +3,7 @@ package com.itwray.study.advance.jvm;
 /**
  * 分析字节码文件
  *
- * @author wangfarui
+ * @author wray
  * @since 2024/6/18
  */
 public class Hello {
